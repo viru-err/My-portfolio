@@ -16,14 +16,14 @@ jobs:
       backend:
         image: node:20
         ports:
-          - 3000:3000
+          - 5000:5000  # Changed port to 5000
         env:
           NODE_ENV: development
         options: >-
-          --health-cmd "curl --fail http://localhost:3000 || exit 1"
+          --health-cmd "curl --fail http://localhost:5000 || exit 1"
           --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
+          --health-timeout 10s  # Increased timeout
+          --health-retries 5    # Increased retries
 
     steps:
       - name: Checkout repository
@@ -40,7 +40,10 @@ jobs:
 
       - name: Start backend
         working-directory: ./backend
-        run: npm start &
+        run: |
+          npm start &
+          sleep 10  # Wait for the backend to start
+          curl http://localhost:5000 || exit 1  # Additional check to ensure it's running
         env:
           NODE_ENV: development
 
