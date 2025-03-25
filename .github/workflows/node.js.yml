@@ -16,14 +16,16 @@ jobs:
       backend:
         image: node:20
         ports:
-          - 5000:5000  # Changed port to 5000
+          - 5000:5000
         env:
           NODE_ENV: development
-        options: >-
-          --health-cmd "curl --fail http://localhost:5000 || exit 1"
-          --health-interval 10s
-          --health-timeout 10s  # Increased timeout
-          --health-retries 5    # Increased retries
+        command: >
+          sh -c "while :; do sleep 10; done"  # Keep the container running
+        options: >
+          --health-cmd="curl --fail http://localhost:5000 || exit 1"
+          --health-interval=10s
+          --health-timeout=10s
+          --health-retries=5
 
     steps:
       - name: Checkout repository
