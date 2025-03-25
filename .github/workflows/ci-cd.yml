@@ -56,20 +56,20 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: PortFolio
         run: npm install
 
       # Build the frontend
       - name: Build frontend
-        working-directory: frontend
+        working-directory: PortFolio
         run: npm run build
 
       # Run tests (if any)
       - name: Run frontend tests
-        working-directory: frontend
+        working-directory: PortFolio
         run: npm test
 
       # Lint the code (optional)
       - name: Lint frontend code
-        working-directory: frontend
+        working-directory: PortFolio
         run: npm run lint || echo "Linting skipped"
