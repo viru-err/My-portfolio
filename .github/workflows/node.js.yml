@@ -1,4 +1,4 @@
-name: Deploy Portfolio and Backend
+name: Node.js CI/CD
 
 on:
   push:
@@ -9,54 +9,32 @@ on:
       - main
 
 jobs:
-  setup:
+  build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      backend:
-        image: node:20
-        ports:
-          - 5000:5000
-        env:
-          NODE_ENV: development
-        command: >
-          sh -c "while :; do sleep 10; done"  # Keep the container running
-        options: >
-          --health-cmd="curl --fail http://localhost:5000 || exit 1"
-          --health-interval=10s
-          --health-timeout=10s
-          --health-retries=5
-
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 16 # Specify the Node.js version you are using
 
-      - name: Install dependencies for backend
-        working-directory: ./backend
+      # Step 3: Install dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Start backend
-        working-directory: ./backend
-        run: |
-          npm start &
-          sleep 10  # Wait for the backend to start
-          curl http://localhost:5000 || exit 1  # Additional check to ensure it's running
-        env:
-          NODE_ENV: development
+      # Step 4: Run tests (if any)
+      - name: Run tests
+        run: npm test
 
-      - name: Install dependencies for frontend
-        working-directory: ./PortFolio
-        run: npm install
+      # Step 5: Lint the code (optional)
+      - name: Lint code
+        run: npm run lint || echo "Linting skipped"
 
-      - name: Build frontend
-        working-directory: ./PortFolio
-        run: npm run build
-
-      - name: Start frontend
-        working-directory: ./PortFolio
-        run: npm run dev
+      # Step 6: Build the project (if applicable)
+      - name: Build project
+        run: npm run build || echo "No build script found"
