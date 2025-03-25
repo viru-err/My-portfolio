@@ -8,7 +8,7 @@ function About() {
         {/* Image Section */}
         <div className="flex-shrink-0">
           <img 
-            src="./public/viru.jpeg" 
+            src="viru.jpeg" 
             alt="Viru" 
             className="w-48 h-48 md:w-60 md:h-60 rounded-full shadow-xl border-4 border-gray-700 object-cover"
           />
