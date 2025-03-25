@@ -7,7 +7,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors()); // Allow requests from frontend
+app.use(cors({
+  origin: 'https://my-portfolio-1-lqff.onrender.com', // Replace with your frontend's URL
+  methods: ['GET', 'POST'], // Allowed HTTP methods
+  credentials: true, // Allow cookies if needed
+})); // Allow requests from frontend
 app.use(express.json()); // Parse JSON request body
 
 // Email Sending Route
