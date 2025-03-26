@@ -46,8 +46,8 @@ function Home() {
 
           {/* Resume Button */}
           <a 
-            href="viru_portfolio+latest.pdf" // Make sure to place your resume file in the public folder
-            download="viru_portfolio.pdf"
+            href="viru_resume11.pdf" // Make sure to place your resume file in the public folder
+            download="viru_resume.pdf"
             className="py-2 px-4 text-lg font-semibold rounded-l-3xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:from-blue-500 hover:to-pink-500 flex items-center space-x-2"
           >
             <span>Resume</span> 
